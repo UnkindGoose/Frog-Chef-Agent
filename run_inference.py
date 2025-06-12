@@ -1,6 +1,6 @@
 from langdetect import detect
 from langchain_core.messages import HumanMessage
-from graph import graph
+from utils.graph import graph
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -12,7 +12,14 @@ Agent only supports English and Russian.
 
 def run_inference(message: str):
     language = detect(message) if detect(message) in ['en', 'ru'] else 'en'
-    return graph.invoke({'messages': [HumanMessage(message)], 'language':language})
+    result = graph.invoke({'messages': [HumanMessage(message)], 'language':language})
+    
+    response = {'reply':result['messages'][-1].content}
+    
+    if 'image' in result and result['image'] is not None:
+        response['image'] = result['image']
+    
+    return response
 
 '''
 FastAPI endpoint

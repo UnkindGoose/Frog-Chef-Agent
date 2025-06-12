@@ -8,7 +8,7 @@ from langchain_core.tools import tool, InjectedToolCallId
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.messages import ToolMessage
 
-from storage import meal_store
+from utils.storage import meal_store
 
 ''' 
 Loading neccessary models and declaring system prompts

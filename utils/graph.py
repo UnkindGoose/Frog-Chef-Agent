@@ -7,7 +7,7 @@ from langgraph.prebuilt import ToolNode
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 
-from models import *
+from utils.models import *
 
 
 '''
