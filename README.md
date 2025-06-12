@@ -1,4 +1,7 @@
 # 🐸Frog-Chef-Agent
+
+<img alt="Frog-Chef" src="./frog.png" width="200"/>
+
 Repository contains files for LangGraph agent, that can describe recipes from mealDB. It supports English and Russian language and uses LanceDB vector storage to store meals.
 
 ## Contents
@@ -10,6 +13,8 @@ There are 4 main .py files required to run this agent:
   - translator LLM.
 - [storage.py](./storage.py) contains commands to connect to local vector storage (LanceDB).
 - [graph.py](./graph.py) contains graph nodes, routers and overall structure.
+
+.env file contains customizable variables that control agent behaviour
 
 To set up vector storage, [setup_db.py](./setup_db.py) script was used.
 
@@ -45,4 +50,4 @@ LLM_PROMPT="You are a cheerful frog chef who helps users with recipes and ingred
 
 - [x] Add Russian language support
 - [ ] Make API
-- [ ] Make UI
+- [ ] Make UI that will show images of requested meals
