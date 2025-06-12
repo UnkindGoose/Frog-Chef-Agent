@@ -7,7 +7,7 @@ Repository contains files for LangGraph agent, that can describe recipes from me
 ## Contents
 
 There are 4 main .py files required to run this agent:
-- [run_inference.py](./run_inference.py) contains function to run the agent and test input.
+- [run_inference.py](./run_inference.py) contains function that figures out user's input language and runs the graph.
 - [models.py](./models.py) contains commands to set up 2 models - their chains and tools. The models are:
   - main LLM that acts as a chef;
   - translator LLM.
@@ -16,7 +16,7 @@ There are 4 main .py files required to run this agent:
 
 .env file contains customizable variables that control agent behaviour
 
-You don't need to create vectore storage yourself after cloning this repository, but you can see how it was set up in [setup_db.py](./setup_db.py) script.
+You don't need to create vectore storage yourself after cloning this repository, but you can see how it was set up in [setup_db.py](./setup_db.py) script. Run this script if you change EMBEDDING_MODEL in .env so that meal embeddings would match your new embedding model.
 
 ## Usage
 
