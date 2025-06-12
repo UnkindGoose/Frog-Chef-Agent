@@ -1,6 +1,6 @@
 # 🐸Frog-Chef-Agent
 
-<img alt="Frog-Chef" src="./frog.png" width="200"/>
+<img alt="Frog-Chef" src="./images/frog.png" width="200"/>
 
 Repository contains files for LangGraph agent, that can describe recipes from mealDB. It supports English and Russian language and uses LanceDB vector storage to store meals.
 
@@ -16,15 +16,55 @@ There are 4 main .py files required to run this agent:
 
 .env file contains customizable variables that control agent behaviour
 
-To set up vector storage, [setup_db.py](./setup_db.py) script was used.
+You don't need to create vectore storage yourself after cloning this repository, but you can see how it was set up in [setup_db.py](./setup_db.py) script.
 
 ## Usage
+
+To try this agent, simply create Python 3.10 venv. From that venv run commands below to install the repository and dependencies:
 
 ```cmd
 git clone https://github.com/UnkindGoose/Frog-Chef-Agent.git
 cd Frog-Chef-Agent
 pip install -r requirements.txt
 ```
+
+To run API and make a POST request use:
+
+```cmd
+fastapi dev run_inference.py
+curl -X POST "http://127.0.0.1:8000/chat" -H "Content-Type: application/json" -d "{\"message\":\"Your message\"}"
+```
+
+You can also just open run_inference.py and uncomment the test input lines while commenting the FastAPI lines.
+
+```Python
+'''
+FastAPI endpoint
+'''
+
+app = FastAPI()
+
+class ChatInput(BaseModel):
+    message: str
+
+@app.post("/chat")
+async def chat(input: ChatInput):
+    return run_inference(input.message)
+
+# '''
+# Test Input
+# '''
+
+# test_input = "Как приготовить блины?"
+# test_output = run_inference(test_input)
+
+# print("_"*50)
+# print(test_output)
+# print("_"*50)
+# print(f"Model output:\n{test_output['messages'][-1].content}\nQuery Language: {test_output['language']}")
+```
+
+After that just run the script with desired input.
 
 ## Customization
 
@@ -49,5 +89,5 @@ LLM_PROMPT="You are a cheerful frog chef who helps users with recipes and ingred
 ## TODO
 
 - [x] Add Russian language support
-- [ ] Make API
+- [x] Make API
 - [ ] Make UI that will show images of requested meals
