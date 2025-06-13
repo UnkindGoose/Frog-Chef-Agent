@@ -1,8 +1,13 @@
 # 🐸Frog-Chef-Agent
 
-<img alt="Frog-Chef" src="./images/frog.png" width="200"/>
-
 Repository contains files for LangGraph agent, that can describe recipes from mealDB. It supports English and Russian language and uses LanceDB vector storage to store meals.
+
+
+Small demo with UI on NextJS. 
+
+**UI is not included in this repository for now.**
+
+<img alt="Frog-Chat" src="./images/demo2.gif"/>
 
 ## Contents
 
