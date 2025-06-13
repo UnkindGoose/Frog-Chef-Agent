@@ -1,9 +1,12 @@
 import os
 import pandas as pd
 import lancedb
+from dotenv import load_dotenv
 
 from langchain_ollama.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import LanceDB
+
+load_dotenv()
 
 '''
 Run if vector database wasn't created yet.
@@ -11,7 +14,7 @@ This script creates vector db from the list of meals from mealdb.
 Embedding model can be changed in .env files.
 '''
 
-embedding_model = os.environ['EMBEDDING_MODEL']
+embedding_model = os.getenv('EMBEDDING_MODEL')
 mealdb = pd.read_csv('utils/mealdb.csv')
 
 db = lancedb.connect("frog-chef-db")

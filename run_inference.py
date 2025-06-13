@@ -10,9 +10,9 @@ It detects user's language and runs the graph with user's message and detected l
 Agent only supports English and Russian.
 '''
 
-def run_inference(message: str):
+async def run_inference(message: str):
     language = detect(message) if detect(message) in ['en', 'ru'] else 'en'
-    result = graph.invoke({'messages': [HumanMessage(message)], 'language':language})
+    result = await graph.ainvoke({'messages': [HumanMessage(message)], 'language':language})
     
     response = {'reply':result['messages'][-1].content}
     
@@ -32,7 +32,7 @@ class ChatInput(BaseModel):
 
 @app.post("/chat")
 async def chat(input: ChatInput):
-    return run_inference(input.message)
+    return await run_inference(input.message)
 
 # '''
 # Test Input

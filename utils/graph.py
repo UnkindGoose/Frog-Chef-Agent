@@ -24,9 +24,9 @@ class AgentState(TypedDict):
 Nodes and routers
 '''
 
-def translation_router(state: AgentState):
+async def translation_router(state: AgentState):
     
-    print("--Deciding translation\n")
+    #print("--Deciding translation\n")
     
     if state['language'] != detect(state['messages'][-1].content):
         return 'translate'
@@ -34,9 +34,9 @@ def translation_router(state: AgentState):
         return 'next'
 
 
-def meal_router(state: AgentState):
+async def meal_router(state: AgentState):
     
-    print("--Deciding meal recipe\n")
+    #print("--Deciding meal recipe\n")
     
     last_msg = state["messages"][-1]
     if last_msg.tool_calls and isinstance(last_msg, AIMessage):
@@ -44,23 +44,23 @@ def meal_router(state: AgentState):
     return "end"
 
 
-def llm_node(state: AgentState):
+async def llm_node(state: AgentState):
     
-    print("--Entering LLM Node\n")
+    #print("--Entering LLM Node\n")
     
     llm_chain = llm_chain_proxy
-    response = llm_chain.invoke({'input':state['messages']})
+    response = await llm_chain.ainvoke({'input':state['messages']})
     response.content = re.sub(r"<think>.*?</think>", "", response.content, flags=re.DOTALL).strip()
     
     return {'messages': [response]}
 
 
-def translate_node(state: AgentState):
+async def translate_node(state: AgentState):
     
-    print("--Entering Translation Node\n")
+    #print("--Entering Translation Node\n")
     
     translation_chain = translation_chain_proxy
-    translation = translation_chain.invoke({'input':state['messages'][-1].content})
+    translation = await translation_chain.ainvoke({'input':state['messages'][-1].content})
     
     return {'messages': [translation]}
 

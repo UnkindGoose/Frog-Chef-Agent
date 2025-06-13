@@ -1,6 +1,7 @@
 import os
 import requests
 from typing import Annotated
+from dotenv import load_dotenv
 
 from langgraph.types import Command
 from langchain_ollama.chat_models import ChatOllama
@@ -10,19 +11,21 @@ from langchain_core.messages import ToolMessage
 
 from utils.storage import meal_store
 
+load_dotenv()
+
 ''' 
 Loading neccessary models and declaring system prompts
 '''
 
-model = os.environ['MODEL_NAME']
-translator_model = os.environ['TRANSLATOR_MODEL_NAME']
+model = os.getenv('MODEL_NAME')
+translator_model = os.getenv('TRANSLATOR_MODEL_NAME')
 
 
 translator_prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            os.environ['TRANSLATOR_PROMPT'],
+            os.getenv('TRANSLATOR_PROMPT'),
         ),
         (
             "user", 
@@ -35,7 +38,7 @@ system_prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            os.environ['LLM_PROMPT'],
+            os.getenv('LLM_PROMPT'),
         ),
         ("placeholder",  "{input}"),
     ]
@@ -90,7 +93,7 @@ def find_closest_meal(tool_call_id: Annotated[str, InjectedToolCallId], meal_que
         "instructions": meal['strInstructions']
     }
     
-    print(result)
+    #print(result)
     
     return Command(update={
         "image": meal['strMealThumb'],
