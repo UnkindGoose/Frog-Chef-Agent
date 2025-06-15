@@ -95,4 +95,5 @@ LLM_PROMPT="You are a cheerful frog chef who helps users with recipes and ingred
 
 - [x] Add Russian language support
 - [x] Make API
-- [ ] Make UI that will show images of requested meals
+- [x] Make UI that will show images of requested meals
+- [ ] Create Docker Image to run the UI and models
